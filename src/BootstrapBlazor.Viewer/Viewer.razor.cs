@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Viewer : IAsyncDisposable
 {
-    [Inject] IJSRuntime? JS { get; set; }
+    [Inject][NotNull] IJSRuntime? JS { get; set; }
     /// <summary>
     /// 使用内置图片DIV
     /// </summary>
