@@ -86,7 +86,7 @@ public partial class Viewer : IAsyncDisposable
     {
         if (firstRender)
         {
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Viewer/lib/viewerjs/viewerjs.js");
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Viewer/lib/viewerjs/viewerjs.js" + "?v=" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
             await module.InvokeVoidAsync("initOptions", Options);
         }
     }
