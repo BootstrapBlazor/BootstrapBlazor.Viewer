@@ -55,18 +55,18 @@ Demo
 
 
 |  类型   |  参数   | 说明  | 默认值  | 备注  |
-|  ----  | ----  | ----  |  ----  | 
-| bool|UseBuiltinImageDiv  | 使用内置图片DIV | true |  |
-| List&lt;string&gt; |Images  | 图片列表DIV |  |  |
-| string |Src | 单图片 |  |  |
-| List&lt;string&gt; |Alts | 图片名称列表 |  |  |
+|  ----  | ----  | ----  |  ----  |  ----  | 
+| bool | UseBuiltinImageDiv  | 使用内置图片DIV | true |  |
+| List&lt;string&gt; | Images  | 图片列表DIV |  |  |
+| string | Src | 单图片 |  |  |
+| List&lt;string&gt; | Alts | 图片名称列表 |  |  |
 | bool |toolbarlite | 简化版工具条 | false |  |
-| string |Height | 高 | 400px |  |
-| string |Width | 宽 | 400px |  |
-| string |ID | 组件ID |  |  |
-| List&lt;Stream&gt; |ImagesStream | 图片流列表 |  |  |
-| Stream |SrcStream | 单图片流 |  |  |
-| bool |LocalFileToStream | 使用流读取本地图片 | false |  |
+| string | Height | 高 | 400px |  |
+| string | Width | 宽 | 400px |  |
+| string | ID | 组件ID |  |  |
+| List&lt;Stream&gt; | ImagesStream | 图片流列表 |  |  |
+| Stream | SrcStream | 单图片流 |  |  |
+| bool | LocalFileToStream | 使用流读取本地图片 | false |  |
 
 ---
 #### 更新历史
