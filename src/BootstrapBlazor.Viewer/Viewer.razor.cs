@@ -18,6 +18,7 @@ namespace BootstrapBlazor.Components;
 public partial class Viewer : IAsyncDisposable
 {
     [Inject][NotNull] IJSRuntime? JS { get; set; }
+    
     /// <summary>
     /// 使用内置图片DIV
     /// </summary>
@@ -63,16 +64,51 @@ public partial class Viewer : IAsyncDisposable
     /// </summary>
     [Parameter] public string? ID { get; set; }
 
+    /// <summary>
+    /// 图片流列表
+    /// </summary>
+    [Parameter] public List<Stream> ImagesStream { get; set; } = new List<Stream>();
+
+    /// <summary>
+    /// 单图片流
+    /// </summary>
+    [Parameter] public Stream? SrcStream { get; set; }
+
+    /// <summary>
+    /// 使用流读取本地图片
+    /// </summary>
+    [Parameter] public bool LocalFileToStream { get; set; }
+
+
     private IJSObjectReference? module;
 
     protected override void OnInitialized()
     {
         Options ??= new ViewerOptions();
+
         if (toolbarlite != null) Options.toolbarlite = toolbarlite.Value;
+
         if (!string.IsNullOrEmpty(ID)) Options.id = ID; else Options.id = Guid.NewGuid().ToString();
+
+        if (LocalFileToStream && !Images.Any())
+        {
+            Images.ForEach(src => Images.Add(PopulateImageFromStream(File.OpenRead(src))));
+        }
+
         Images ??= new List<string>();
+
+        if (SrcStream != null)
+        {
+            Images.Add(PopulateImageFromStream(SrcStream));
+        }
+        if (ImagesStream != null)
+        {
+            ImagesStream.ForEach(stream => Images.Add(PopulateImageFromStream(stream)));
+        }
         if (Src != null)
-            Images.Add(Src);
+        {
+            Images.Add(!LocalFileToStream ? Src : PopulateImageFromStream(File.OpenRead(Src)));
+        }
         else if (!Images.Any())
         {
             for (int i = 1; i <= 9; i++)
@@ -101,4 +137,14 @@ public partial class Viewer : IAsyncDisposable
             await module.DisposeAsync();
         }
     }
+
+    private string PopulateImageFromStream(Stream stream)
+    {
+        MemoryStream ms = new MemoryStream();
+        stream.CopyTo(ms);
+        byte[] byteArray = ms.ToArray();
+        var b64String = Convert.ToBase64String(byteArray);
+        return "data:image/png;base64," + b64String;
+    }
+
 }
