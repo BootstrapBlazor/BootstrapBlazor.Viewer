@@ -79,6 +79,11 @@ public partial class Viewer : IAsyncDisposable
     /// </summary>
     [Parameter] public bool LocalFileToStream { get; set; }
 
+    /// <summary>
+    /// 列表为空自动显示默认图片
+    /// </summary>
+    [Parameter] public bool ShowDefaultPhotos { get; set; }
+
 
     private IJSObjectReference? module;
 
@@ -109,7 +114,7 @@ public partial class Viewer : IAsyncDisposable
         {
             Images.Add(!LocalFileToStream ? Src : PopulateImageFromStream(File.OpenRead(Src)));
         }
-        else if (!Images.Any())
+        else if (ShowDefaultPhotos && !Images.Any())
         {
             for (int i = 1; i <= 9; i++)
             {
