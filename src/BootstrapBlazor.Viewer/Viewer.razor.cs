@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Viewer : IAsyncDisposable
 {
-    [Inject][NotNull] IJSRuntime? JS { get; set; }
+    [Inject][NotNull] IJSRuntime? JSRuntime { get; set; }
     
     /// <summary>
     /// 使用内置图片DIV
@@ -127,7 +127,7 @@ public partial class Viewer : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Viewer/lib/viewerjs/viewerjs.js" + "?v=" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Viewer/lib/viewerjs/viewerjs.js" + "?v=" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
             await Module.InvokeVoidAsync("initOptions", Options);
         }
     }
